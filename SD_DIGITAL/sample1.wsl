@@ -1,0 +1,103 @@
+begin 89.09,-6.20,157.93,-99.27,126.37,-94.85
+folder (PreProgram) {
+	folder (declaration_initialization) {
+		set rb_global_vel_bar 100
+		assign {
+			var process_data = 0
+			var input_data = 0
+		}
+		digital_out 1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+		wait (10 sec)
+		digital_out 0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+	}
+}
+assign {
+}
+folder () {
+	folder () {
+		repeat (-1 times) {
+			folder () {
+				if (input_data == 0) {
+					if (SD_DIGITAL_IN_0 == 1) {
+						wait (0.3 sec)
+						script {
+							process_data = 1
+							input_data = 1
+						}
+					}
+					if (SD_DIGITAL_IN_1 == 1) {
+						wait (0.3 sec)
+						script {
+							process_data = 2
+							input_data = 1
+						}
+					}
+					if (SD_DIGITAL_IN_2 == 1) {
+						wait (0.3 sec)
+						script {
+							process_data = 3
+							input_data = 1
+						}
+					}
+				}
+				if (input_data == 1) {
+					if (process_data == 1) {
+						text (Relay_6)
+						folder () {
+							repeat (7 times) {
+							// move
+							}
+							folder () {
+								digital_out -1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+								wait (0.3 sec)
+								digital_out -1,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+							}
+						}
+						script {
+							process_data = 4
+						}
+					}
+					if (process_data == 2) {
+						text (Relay_7)
+						// move
+						repeat (1 times) {
+						// move
+						}
+						folder () {
+							digital_out -1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+							wait (0.3 sec)
+							digital_out -1,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+						}
+						script {
+							process_data = 4
+						}
+					}
+					if (process_data == 3) {
+						text (Relay_8)
+						// move
+						repeat (5 times) {
+							// move
+						}
+						folder () {
+							digital_out -1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+							wait (0.3 sec)
+							digital_out -1,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+						}
+						script {
+							process_data = 4
+						}
+					}
+					if (process_data == 4) {
+						// move
+						script {
+							process_data = 0
+							input_data = 0
+						}
+					}
+				}
+			}
+		}
+	}
+}
+end
+monitoring "process_data","input_data"

@@ -1,0 +1,136 @@
+begin 89.09,-6.20,157.93,-99.27,126.37,-94.85
+folder (PreProgram) {
+	folder (declaration_initialization) {
+		set rb_global_vel_bar 100
+		assign {
+			var process_data = 0
+			var input_data = 0
+		}
+		move joint {
+			point () absolute 0.40,0.10,84.98,-27.89,103.41,-71.19,89.13,-94.85,240.73,311.48,735.72,137.62,-83.55,36.31
+		}
+		move joint {
+			point () absolute 0.40,0.10,89.09,-6.20,157.93,-99.27,126.37,-94.85,110.35,326.28,170.94,129.15,-34.58,84.37
+		}
+		digital_out 1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+		wait (10 sec)
+		digital_out 0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+	}
+}
+assign {
+}
+folder () {
+	folder () {
+		repeat (-1 times) {
+			folder () {
+				if (input_data == 0) {
+					if (SD_DIGITAL_IN_0 == 1) {
+						wait (0.3 sec)
+						script {
+							process_data = 1
+							input_data = 1
+						}
+					}
+					if (SD_DIGITAL_IN_1 == 1) {
+						wait (0.3 sec)
+						script {
+							process_data = 2
+							input_data = 1
+						}
+					}
+					if (SD_DIGITAL_IN_2 == 1) {
+						wait (0.3 sec)
+						script {
+							process_data = 3
+							input_data = 1
+						}
+					}
+				}
+				if (input_data == 1) {
+					if (process_data == 1) {
+						text (Relay_6)
+						folder () {
+							repeat (7 times) {
+								move joint {
+									point () absolute 0.40,0.10,97.07,19.10,91.44,-67.27,97.39,-94.86,104.44,708.90,402.07,102.39,-45.89,90.15
+								}
+								move joint {
+									point () absolute 0.40,0.10,64.47,26.21,91.53,-84.05,97.39,-94.86,483.49,569.32,367.95,104.42,-55.39,55.98
+								}
+							}
+							folder () {
+								digital_out -1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+								wait (0.3 sec)
+								digital_out -1,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+							}
+						}
+						script {
+							process_data = 4
+						}
+					}
+					if (process_data == 2) {
+						text (Relay_7)
+						move joint {
+							point () absolute 0.40,0.10,112.26,31.50,47.25,-79.32,60.60,-86.18,-10.16,734.03,727.98,-8.18,-86.42,-178.98
+						}
+						repeat (1 times) {
+							move joint {
+								point () absolute 0.40,0.10,112.26,31.50,47.25,-79.32,60.60,-86.18,-10.16,734.03,727.98,-8.18,-86.42,-178.98
+							}
+							move joint {
+								point () absolute 0.40,0.10,69.82,31.11,47.24,-78.32,101.67,-86.18,432.49,657.31,731.34,0.32,-86.17,171.18
+							}
+							move joint {
+								point () absolute 0.40,0.10,69.42,60.18,90.24,-142.88,101.67,-86.18,427.48,628.86,135.82,72.85,-82.28,98.50
+							}
+							move joint {
+								point () absolute 0.40,0.10,111.52,66.09,84.22,-150.25,64.09,-89.82,-0.37,720.25,112.88,12.02,-89.79,163.60
+							}
+						}
+						folder () {
+							digital_out -1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+							wait (0.3 sec)
+							digital_out -1,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+						}
+						script {
+							process_data = 4
+						}
+					}
+					if (process_data == 3) {
+						text (Relay_8)
+						move joint {
+							point () absolute 0.40,0.10,83.97,-88.20,16.11,65.35,-91.71,-51.25,-72.54,-958.23,459.62,10.65,-50.55,-16.02
+						}
+						repeat (5 times) {
+							move joint {
+								point () absolute 0.40,0.10,83.97,-88.20,16.11,65.35,-91.71,-51.25,-72.54,-958.23,459.62,10.65,-50.55,-16.02
+							}
+							move joint {
+								point () absolute 0.40,0.10,58.25,-88.24,16.11,65.34,-77.26,-51.25,-457.25,-865.65,456.99,10.87,-52.24,-27.55
+							}
+						}
+						folder () {
+							digital_out -1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+							wait (0.3 sec)
+							digital_out -1,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+						}
+						script {
+							process_data = 4
+						}
+					}
+					if (process_data == 4) {
+						move joint {
+							point () absolute 0.40,0.10,89.09,-6.20,157.93,-99.27,126.37,-94.85,110.35,326.28,170.94,129.15,-34.58,84.37
+						}
+						script {
+							process_data = 0
+							input_data = 0
+						}
+					}
+				}
+			}
+		}
+	}
+}
+end
+monitoring "process_data","input_data"
